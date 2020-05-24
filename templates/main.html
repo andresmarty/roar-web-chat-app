@@ -1,0 +1,76 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row h-100 row-no-gutters">
+            <div class="col-lg-3">
+                <h3>Welcome to Roar!</h3>
+                <h5 id="name">{{ user }}</h5>
+            <form>
+                <h6>Create new channel</h6>
+                <input type="text" placeholder="Channel name" name="input" id="inputChannel" autocomplete="off">
+                <button id="buttonChannel" type="button" class="btn btn-secondary btn-sm">Add Channel</button>
+            </form>
+            <div class="container-ul">
+                <p class="title-list">List of channels</p>
+                <ul class="list-group list-group-flush" id="channel">
+                    {% for channel in channels %}
+                    <div class="container-channel"><button id="{{channel.channelName}}" type="button" class="linkChannel btn btn-link">
+                        {{ channel.channelName }}
+                    </button>
+                    </div>
+                        {% endfor %}
+                </ul>
+            </div>
+            <div class="container-channel1">
+                <button type="button" class="linkChannel1 btn btn-link"><a href="{{ url_for('logout') }}">Log out</a>
+                </button>
+            </div>
+            </div>
+                <div class="col-lg-9">
+                    <div class="container-fluid1 d-flex align-items-center justify-content-center">
+                        {% if activeChannel == None %}
+                        <div id="fotoPrincipal">
+                            <img class="foto-main" src="static/logoleon3.png" alt="logo">
+                        </div> 
+                        <div class="hide" id="chatRoom">
+                            <div class="superior" id="header"></div>
+                            <div class="text-area">
+                                <ul id="messages">
+                                </ul>
+                            </div>
+                            <form action="">
+                                <input class="message-input" type="text" placeholder="Write your message" name="input" id="inputMessage" autocomplete="off">
+                                <button id="buttonMessage" type="button" class="btn btn-secondary btn-sm">Send</button>
+                            </form>
+                        </div>
+                        {% else %}
+                        <div class="hide" id="fotoPrincipal">
+                            <img class="foto-main" src="static/logoleon3.png" alt="logo">
+                        </div> 
+                        <div id="chatRoom" class="container-chat">
+                            <div class="superior" id="header">{{ activeChannel.channelName }}</div>
+                            <div class="text-area"> 
+                                <ul id="messages">
+                                    {% for message in activeChannel.messages %}
+                                    <div>
+                                        <p class="user">{{ message.user }}:</p>
+                                        <p class="hora">{{ fromtimestamp(message.time/1000.0).strftime('%H:%M') }}</p>
+                                        <p class="chat1">{{ message.message }}</p>
+                                    </div>
+                                    {% endfor %} 
+                                </ul>
+                            </div>
+                            <form action="">
+                                <input class="message-input" type="text" placeholder="Write your message" name="input" id="inputMessage" autocomplete="off">
+                                <button id="buttonMessage" type="button" class="btn btn-secondary btn-sm">Send</button>
+                            </form>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+        </div>
+    </div>
+{% endblock %}
+
+

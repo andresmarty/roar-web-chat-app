@@ -1,0 +1,22 @@
+{% extends "Layout.html" %}
+
+{% block body %}
+    <div class="container">
+        <div class="row h-100">
+            <div class="col-lg"></div>
+                <div class="col-lg-6">
+                    <form class="container-login" action="{{ url_for('login')}}" method="post">
+                        <h1 id="title-login">Welcome to Roar!</h1>
+                        <ul id="ul-login">
+                            <li><input type="text" name="username" placeholder="Enter Your Username" class="message-input1" autocomplete="off"></li>
+                            <li><button class="btn btn-secondary btn-sm" type="submit" id="button-login">Log In</button></li>
+                        </ul>
+                        <div class="container-foto-login">
+                        <img class="foto-login" src="static/logoleon3.png" alt="logo">
+                        </div>
+                    </form>
+                </div>
+            <div class="col-lg"></div>
+        </div>
+    </div>
+{% endblock %}
